@@ -11,7 +11,7 @@ install:
     - LDFLAGS=-lm sudo apt-get install -y $(< requirements-travis.txt)
 
     # install python requirements
-    - pip install -r requirements.txt --use-mirrors
+    - make setup
 
     # weird travis-ci python paths
     - export PYTHONPATH=$PYTHONPATH:/usr/lib/pymodules/python2.7/
@@ -21,7 +21,7 @@ install:
 
     # verify requirements were met
     - INSTALLDIR=$(python -c "import os; import gevent; print(os.path.dirname(gevent.__file__))")
-
+    - INSTALLDIR=$(python -c "import os; import pyvows; print(os.path.dirname(pyvows.__file__))")
 
 script:
     - export PYTHONPATH=$PYTHONPATH:/usr/lib/pymodules/python2.7/
