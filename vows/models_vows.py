@@ -10,7 +10,7 @@
 
 from pyvows import Vows, expect
 
-from openfont.models import Package
+from openfont.models import Package, FontWeight
 
 
 @Vows.batch
@@ -44,7 +44,7 @@ class PackageVows(Vows.Context):
         def should_have_no_weights(self, topic):
             expect(topic.weights).to_be_empty()
 
-    class CanLoadweights(Vows.Context):
+    class CanLoadWeights(Vows.Context):
         def topic(self):
             return Package.load_from_json_string("""{
     "metaVersion": "1.0",
@@ -69,3 +69,6 @@ class PackageVows(Vows.Context):
 
         def should_have_weights(self, topic):
             expect(topic.weights).to_length(12)
+
+        def should_have_proper_weight_names(self, topic):
+            expect(topic.weights).to_include(FontWeight("Black", "SourceSansPro-Black-webfont"))
