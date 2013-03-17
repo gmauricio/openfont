@@ -1,0 +1,9 @@
+{
+    "metaVersion": "1.0",
+    "name": "first",
+    "version": "2.0",
+
+    "weights": {
+        "Black": "SourceSansPro-Black-webfont"
+    }
+}

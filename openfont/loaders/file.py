@@ -12,12 +12,13 @@ from os.path import exists, join
 
 from openfont.loaders.base import Loader
 from openfont.models import Package
-from openfont.errors import InvalidPackageError
+from openfont.errors import InvalidPackageError, BrokenPackageError
 
 
 class OpenFontFileLoader(Loader):
     def __init__(self, path):
         self.path = path
+        self.valid_formats = ['woff', 'eot', 'svg', 'ttf']
 
         self.load()
 
@@ -35,3 +36,20 @@ class OpenFontFileLoader(Loader):
             pkg = Package.load_from_json_string(pkg_file.read())
 
         self.package = pkg
+
+        self.validate_package()
+
+    def validate_package(self):
+        for weight in self.package.weights:
+            for font_format in self.valid_formats:
+                filepath = join(self.path, "%s.%s" % (weight.filename, font_format))
+                if not exists(filepath):
+                    msg = 'Package at "%s" is broken. Missing %s weight file (%s.%s) for format %s.' % (
+                        self.path,
+                        weight.name,
+                        weight.filename,
+                        font_format,
+                        font_format
+                    )
+
+                    raise BrokenPackageError(3, msg, self.path)

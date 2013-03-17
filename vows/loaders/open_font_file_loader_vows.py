@@ -62,3 +62,30 @@ class OpenFontFileLoaderVows(Vows.Context):
             msg = 'Path "%s" does not contain a package.json file. No openfont package could be loaded.' % fixture_path
             expect(topic.strerror).to_equal(msg)
             expect(topic.filename).to_equal(fixture_path)
+
+    class WhenValidPathButMissingFonts(Vows.Context):
+        def topic(self):
+            errored = 0
+            valid_formats = ['woff', 'eot', 'svg', 'ttf']
+            for font_format in valid_formats:
+                try:
+                    OpenFontFileLoader(fixture('missing-fonts-%s' % font_format))
+                except Exception, err:
+                    errored += 1
+                    yield (font_format, err)
+
+            if errored != len(valid_formats):
+                raise RuntimeError("Should have errored %d times" % len(valid_formats))
+
+        def should_be_an_error(self, (font_format, topic)):
+            expect(topic).to_be_an_error()
+            expect(topic).to_be_an_error_like(openfont.errors.BrokenPackageError)
+            expect(topic.errno).to_equal(3)
+            fixture_path = fixture('missing-fonts-%s' % font_format)
+            msg = u'Package at "%s" is broken. Missing Black weight file (SourceSansPro-Black-webfont.%s) for format %s.' % (
+                fixture_path,
+                font_format,
+                font_format
+            )
+            expect(topic.strerror).to_equal(msg)
+            expect(topic.filename).to_equal(fixture_path)

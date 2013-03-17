@@ -11,3 +11,6 @@
 
 class InvalidPackageError(IOError):
     pass
+
+class BrokenPackageError(IOError):
+    pass
