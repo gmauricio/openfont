@@ -19,13 +19,23 @@ class PackageLoaderAlgorithm1(object):
         pkg.meta_version = json['metaVersion']
         pkg.name = json['name']
         pkg.version = json['version']
-        pkg.families = cls.parse_families(json)
+        pkg.weights = cls.parse_weights(json)
 
         return pkg
 
     @classmethod
-    def parse_families(cls, obj):
-        return []
+    def parse_weights(cls, obj):
+        weights = []
+        for name, filename in obj['weights'].iteritems():
+            weights.append(FontWeight(name, filename))
+
+        return weights
+
+
+class FontWeight(object):
+    def __init__(self, name, filename):
+        self.name = name
+        self.filename = filename
 
 
 class Package(object):

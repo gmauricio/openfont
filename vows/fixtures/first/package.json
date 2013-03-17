@@ -3,7 +3,18 @@
     "name": "first",
     "version": "2.0",
 
-    "families": [
-
-    ]
+    "weights": {
+        "Black": "SourceSansPro-Black-webfont",
+        "Black It": "SourceSansPro-BlackIt-webfont",
+        "Bold": "SourceSansPro-Bold-webfont",
+        "Bold It": "SourceSansPro-BoldIt-webfont",
+        "Extra Light": "SourceSansPro-ExtraLight-webfont",
+        "Extra Light It": "SourceSansPro-ExtraLightIt-webfont",
+        "Regular": "SourceSansPro-Regular-webfont",
+        "Regular It": "SourceSansPro-It-webfont",
+        "Light": "SourceSansPro-Light-webfont",
+        "Light It": "SourceSansPro-LightIt-webfont",
+        "Semibold": "SourceSansPro-Semibold-webfont",
+        "Semibold It": "SourceSansPro-SemiboldIt-webfont"
+    }
 }

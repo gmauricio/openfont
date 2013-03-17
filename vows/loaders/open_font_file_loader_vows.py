@@ -32,6 +32,9 @@ class OpenFontFileLoaderVows(Vows.Context):
             expect(topic.package.meta_version).to_equal('1.0')
             expect(topic.package.version).to_equal('2.0')
 
+        #class HasProperWeights(Vows.Context):
+            #def topic(self, topic):
+
     class WhenInvalidPathPackage(Vows.Context):
         def topic(self):
             return OpenFontFileLoader("invalid-path")
