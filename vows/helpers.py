@@ -12,4 +12,4 @@ from os.path import abspath, join, dirname
 
 
 def fixture(name):
-    return abspath(join(dirname(__file__), name))
+    return abspath(join(dirname(__file__), 'fixtures', name))
